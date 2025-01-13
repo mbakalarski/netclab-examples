@@ -1,0 +1,47 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: otg-port-1
+  annotations:
+    v1.multus-cni.io/default-network: cni1@eth0
+    k8s.v1.cni.cncf.io/networks: cni3@eth1
+  labels:
+    app: ixia-c
+    role: port-1
+spec:
+  containers:
+    - name: traffic-engine-1
+      image: ghcr.io/open-traffic-generator/ixia-c-traffic-engine:latest
+      env:
+        - name: ARG_IFACE_LIST
+          value: virtual@af_packet,eth1
+        
+        - name: WAIT_FOR_IFACE
+          value: "Yes"
+
+        - name: OPT_NO_HUGEPAGES
+          value: "Yes"
+        - name: OPT_ADAPTIVE_CPU_USAGE
+          value: "Yes"
+        - name: OPT_LISTEN_PORT
+          value: "5555"
+        - name: ARG_CORE_LIST
+          value: 1 1 1
+      securityContext:
+        privileged: true
+      resources:
+        limits:
+          cpu: 1200m
+          memory: 250Mi
+    - name: protocol-engine-1
+      image: ghcr.io/open-traffic-generator/ixia-c-protocol-engine:latest
+      env:
+        - name: INTF_LIST
+          value: eth1
+      securityContext:
+        privileged: true
+      resources:
+        limits:
+          cpu: 200m
+          memory: 350Mi
+  restartPolicy: Always

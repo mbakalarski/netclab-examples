@@ -1,0 +1,11 @@
+apiVersion: kustomize.config.k8s.io/v1alpha1
+kind: Component
+
+resources:
+  - controller-cm.yaml
+  - controller-svc.yaml
+  - controller.yaml
+  - engine-1-svc.yaml
+  - engine-1.yaml
+  - engine-2-svc.yaml
+  - engine-2.yaml

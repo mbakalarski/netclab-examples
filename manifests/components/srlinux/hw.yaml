@@ -1,0 +1,67 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: srl01-hw
+data:
+  topology.yml: |-
+    # ixrd1
+    chassis_configuration:
+      "chassis_type": 64
+      "base_mac": 00:00:01:00:00:01
+      "cpm_card_type": 175
+
+    slot_configuration:
+      1:
+        "card_type": 175
+        "mda_type": 196
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: srl02-hw
+data:
+  topology.yml: |-
+    # ixrd1
+    chassis_configuration:
+      "chassis_type": 64
+      "base_mac": 00:00:01:00:00:02
+      "cpm_card_type": 175
+
+    slot_configuration:
+      1:
+        "card_type": 175
+        "mda_type": 196
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: srl03-hw
+data:
+  topology.yml: |-
+    # ixrd1
+    chassis_configuration:
+      "chassis_type": 64
+      "base_mac": 00:00:01:00:00:03
+      "cpm_card_type": 175
+
+    slot_configuration:
+      1:
+        "card_type": 175
+        "mda_type": 196
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: srl04-hw
+data:
+  topology.yml: |-
+    # ixrd1
+    chassis_configuration:
+      "chassis_type": 64
+      "base_mac": 00:00:01:00:00:04
+      "cpm_card_type": 175
+
+    slot_configuration:
+      1:
+        "card_type": 175
+        "mda_type": 196
