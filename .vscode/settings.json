@@ -1,0 +1,17 @@
+{
+    "ruff.nativeServer": "on",
+    "editor.defaultFormatter": "charliermarsh.ruff",
+    "[python]": {
+        "editor.formatOnSave": true
+    },
+    "files.exclude": {
+        "**/.git": true,
+        "**/__pycache__": true,
+        "**/venv": true,
+        "**/.ruff_cache": true,
+        "**/.pytest_cache": true
+    },
+    "ruff.enable": true,
+    "ruff.format.preview": true,
+    "ruff.organizeImports": true
+}
