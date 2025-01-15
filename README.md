@@ -34,7 +34,9 @@ bash <(curl -Ls "https://raw.githubusercontent.com/mbakalarski/vLab/main/vlab_in
 docker run --name www -dt --mount type=bind,source=$HOME/images,target=/usr/share/nginx/html -p 8080:80 nginx:latest
 ```
 
-* Clone this repo or install the package from PyPI
+* Clone this repo (or install package from PyPI - TBD)
+
+* Install python requirements (in venv of course)
 
 ## Deploy lab and run tests
 * Create topology:
