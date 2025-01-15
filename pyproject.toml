@@ -1,6 +1,6 @@
 [project]
 name = "network-tests"
-version = "0.0.4"
+version = "0.0.1"
 authors = [
     { name = "mbakalarski at github" }
 ]

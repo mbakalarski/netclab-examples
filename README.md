@@ -9,7 +9,7 @@ Testbeds are defined via k8s manifest files.
 * Python 3.x
 
 ## Tools
-* Install kubectl and kind tool, e.g.
+Install kubectl and kind tool, e.g.
 ```
 curl -LO "https://dl.k8s.io/release/$(curl -sL https://dl.k8s.io/release/stable.txt)/bin/linux/amd64/kubectl"
 chmod +x ./kubectl
@@ -21,7 +21,8 @@ curl -Lo ./kind https://kind.sigs.k8s.io/dl/${version}/kind-linux-amd64
 chmod +x ./kind
 sudo mv ./kind /usr/local/bin/kind
 ```
-* Run vLab installation script:
+
+Run vLab installation script:
 ```
 bash <(curl -Ls "https://raw.githubusercontent.com/mbakalarski/vLab/main/vlab_install.sh") kubevirt
 ```
@@ -29,21 +30,20 @@ or
 ```
 bash <(curl -Ls "https://raw.githubusercontent.com/mbakalarski/vLab/main/vlab_install.sh") nokubevirt
 ```
-* Expose images for VM routers, e.g.:
+
+Expose images for VM routers, e.g.:
 ```
 docker run --name www -dt --mount type=bind,source=$HOME/images,target=/usr/share/nginx/html -p 8080:80 nginx:latest
 ```
 
-* Clone this repo (or install package from PyPI - TBD)
-
-* Install python requirements (in venv of course)
+Clone this repo (or install package from PyPI - TBD)
 
 ## Deploy lab and run tests
-* Create topology:
+Create topology:
 ```
 kubectl apply [-f|-k] <manifests for testbed>
 ```
-* Run tests:
+Run tests:
 ```
 pytest -W "ignore::DeprecationWarning"
 ```
