@@ -1,11 +1,11 @@
 import pytest
 import snappi
-from snappi import Api, Config
 from kubernetes import client as k8s_client
 from kubernetes import config as k8s_config
+from snappi import Api, Config
 
 
-def otg_controller_location(svc_name: str, namespace: str) -> str:
+def otg_controller_location(svc_name: str, namespace: str):
     k8s_config.load_kube_config()
     v1 = k8s_client.CoreV1Api()
     ret = v1.read_namespaced_service(svc_name, namespace)

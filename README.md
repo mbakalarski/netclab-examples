@@ -29,18 +29,23 @@ or
 ```
 bash <(curl -Ls "https://raw.githubusercontent.com/mbakalarski/vLab/main/vlab_install.sh") nokubevirt
 ```
-Expose images for VM routers, e.g.:
+* Expose images for VM routers, e.g.:
 ```
 docker run --name www -dt --mount type=bind,source=$HOME/images,target=/usr/share/nginx/html -p 8080:80 nginx:latest
 ```
 
-* Clone this repo.
-
-* Create python venv, install python requirements
+* Clone this repo or install the package from PyPI
 
 ## Deploy lab and run tests
 * Create topology:
 ```
 kubectl apply [-f|-k] <manifests for testbed>
 ```
-* Run tests.
+* Run tests:
+```
+pytest -W "ignore::DeprecationWarning"
+```
+or 
+```
+pytest --pyargs network-tests -W "ignore::DeprecationWarning"
+```

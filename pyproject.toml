@@ -1,0 +1,42 @@
+[project]
+name = "network-tests"
+version = "0.0.4"
+authors = [
+    { name = "mbakalarski at github" }
+]
+description = "Collection of network tests"
+readme = "README.md"
+requires-python = ">=3.12"
+classifiers = [
+    "Programming Language :: Python :: 3",
+    "Operating System :: POSIX :: Linux",
+]
+license = "MIT"
+license-files = ["LICENSE"]
+
+dependencies = [
+    "pytest>=8.3.4",
+    "snappi>=1.19.1",
+    "kubernetes>=31.0.0",
+]
+
+
+[project.urls]
+Homepage = "https://github.com/mbakalarski/network-tests"
+
+
+[tool.pytest.ini_options]
+addopts = [
+    "--import-mode=importlib",
+]
+filterwarnings = [
+    "ignore::DeprecationWarning",
+]
+
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/network-tests"]
