@@ -1,53 +1,34 @@
 # network-tests
 
 This is collection of network tests.<br>
-Testbeds are defined via k8s manifest files.
+Topologies are defined via k8s manifest files.
 
 ## Prerequisites
 * Linux host or VM
-* Docker (rootless mode)
+* netclab installed (https://github.com/mbakalarski/netclab)
 * Python 3.x
 
-## Tools
-Install kubectl and kind tool, e.g.
+## Install network-tests
 ```
-curl -LO "https://dl.k8s.io/release/$(curl -sL https://dl.k8s.io/release/stable.txt)/bin/linux/amd64/kubectl"
-chmod +x ./kubectl
-sudo mv ./kubectl /usr/local/bin/kubectl
-```
-```
-version=$(basename $(curl -s -w %{redirect_url} https://github.com/kubernetes-sigs/kind/releases/latest))
-curl -Lo ./kind https://kind.sigs.k8s.io/dl/${version}/kind-linux-amd64
-chmod +x ./kind
-sudo mv ./kind /usr/local/bin/kind
-```
-
-Run vLab installation script:
-```
-bash <(curl -Ls "https://raw.githubusercontent.com/mbakalarski/vLab/main/vlab_install.sh") kubevirt
+pip install network-tests@git+https://github.com/mbakalarski/network-tests
 ```
 or
 ```
-bash <(curl -Ls "https://raw.githubusercontent.com/mbakalarski/vLab/main/vlab_install.sh") nokubevirt
+git clone https://github.com/mbakalarski/network-tests.git
+pip install -e ./network-tests
 ```
 
-Expose images for VM routers, e.g.:
+## Run lab and tests
+Deploy topology:
 ```
-docker run --name www -dt --mount type=bind,source=$HOME/images,target=/usr/share/nginx/html -p 8080:80 nginx:latest
+kubectl apply [-f|-k] <manifests for topology>
 ```
 
-Clone this repo (or install package from PyPI - TBD)
-
-## Deploy lab and run tests
-Create topology:
-```
-kubectl apply [-f|-k] <manifests for testbed>
-```
 Run tests:
 ```
-pytest -W "ignore::DeprecationWarning"
+pytest --pyargs network-tests
 ```
-or 
+or
 ```
-pytest --pyargs network-tests -W "ignore::DeprecationWarning"
-```
+pytest
+``` 
