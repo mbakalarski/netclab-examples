@@ -10,12 +10,9 @@ Topologies are defined via k8s manifest files.
 
 ## Install network-tests
 ```
-pip install network-tests@git+https://github.com/mbakalarski/network-tests
-```
-or
-```
 git clone https://github.com/mbakalarski/network-tests.git
-pip install -e ./network-tests
+cd network-tests
+pip install -e .
 ```
 
 ## Run lab and tests
@@ -28,7 +25,3 @@ Run tests:
 ```
 pytest --pyargs network-tests
 ```
-or
-```
-pytest
-``` 
