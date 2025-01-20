@@ -13,43 +13,36 @@ patches:
   patch: |-
     - op: replace
       path: /metadata/name
-      value: c1
+      value: dut
     - op: replace
       path: /metadata/annotations/k8s.v1.cni.cncf.io~1networks
-      value: n1@e1-1,n2@e1-2,n3@e1-3
+      value: n1@e1-1,n2@e1-2
 
 - target:
     kind: Pod
     name: srl02
   patch: |-
-    - op: replace
-      path: /metadata/name
-      value: c2
-    - op: replace
-      path: /metadata/annotations/k8s.v1.cni.cncf.io~1networks
-      value: n2@e1-1,n4@e1-2
+    $patch: delete
+    kind: Pod
+    metadata:
+      name: srl02
 
 - target:
     kind: Pod
     name: srl03
   patch: |-
-    - op: replace
-      path: /metadata/name
-      value: c3
-    - op: replace
-      path: /metadata/annotations/k8s.v1.cni.cncf.io~1networks
-      value: n3@e1-1,n5@e1-2
+    - op: add
+      path: /metadata/annotations/config.kubernetes.io~1local-config
+      value: "true"
 
 - target:
     kind: Pod
     name: srl04
   patch: |-
-    - op: replace
-      path: /metadata/name
-      value: c4
-    - op: replace
-      path: /metadata/annotations/k8s.v1.cni.cncf.io~1networks
-      value: n4@e1-1,n5@e1-2,n6@e1-3
+    $patch: delete
+    kind: Pod
+    metadata:
+      name: srl04
 
 - target:
     kind: Pod
@@ -65,4 +58,4 @@ patches:
   patch: |-
     - op: replace
       path: /metadata/annotations/k8s.v1.cni.cncf.io~1networks
-      value: n6@eth2
+      value: n2@eth2

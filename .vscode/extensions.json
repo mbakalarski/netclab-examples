@@ -1,0 +1,8 @@
+{
+    "recommendations": [ 
+        "ms-python.python",
+        "charliermarsh.ruff",
+        "ms-kubernetes-tools.vscode-kubernetes-tools",
+        "redhat.vscode-yaml"
+    ]
+}

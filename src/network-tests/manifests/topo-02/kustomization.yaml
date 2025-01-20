@@ -1,0 +1,26 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+
+components:
+- ../components/networks
+- ../components/csr
+
+patches:
+- target:
+    group: kubevirt.io
+    version: v1
+    kind: VirtualMachine
+    name: csr01
+  patch: |-
+    - op: replace
+      path: /spec/template/spec/networks/1/multus/networkName
+      value: n1
+- target:
+    group: kubevirt.io
+    version: v1
+    kind: VirtualMachine
+    name: csr02
+  patch: |-
+    - op: replace
+      path: /spec/template/spec/networks/1/multus/networkName
+      value: n1

@@ -17,5 +17,11 @@
         "**/venv": true,
         "**/.ruff_cache": true,
         "**/.pytest_cache": true
+    },
+
+    "vs-kubernetes": {
+        "disable-linters": [
+            "resource-limits"
+        ]
     }
 }

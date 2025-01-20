@@ -9,7 +9,7 @@ metadata:
     role: controller
 spec:
   containers:
-    - name: keng-controller
+    - name: otg-controller
       image: ghcr.io/open-traffic-generator/keng-controller:latest
       args:
         - --accept-eula
@@ -19,9 +19,9 @@ spec:
           name: config
           readOnly: true
       resources:
-        limits:
-          cpu: 100m
-          memory: 250Mi
+        requests:
+          cpu: 10m
+          memory: 25Mi
     - name: otg-gnmi-server
       image: ghcr.io/open-traffic-generator/otg-gnmi-server:latest
       args:
@@ -33,9 +33,9 @@ spec:
           name: gnmi-port
           protocol: TCP
       resources:
-        limits:
-          cpu: 100m
-          memory: 250Mi
+        requests:
+          cpu: 10m
+          memory: 25Mi
   restartPolicy: Always
   volumes:
     - configMap:

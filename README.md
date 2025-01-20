@@ -15,7 +15,7 @@ cd network-tests
 pip install -e .
 ```
 
-## Run lab and tests
+## Run topology and tests
 Deploy topology:
 ```
 kubectl apply [-f|-k] <manifests for topology>
