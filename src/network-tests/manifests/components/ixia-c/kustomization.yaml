@@ -9,3 +9,5 @@ resources:
   - engine-1.yaml
   - engine-2-svc.yaml
   - engine-2.yaml
+  - engine-3-svc.yaml
+  - engine-3.yaml

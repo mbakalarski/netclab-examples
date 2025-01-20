@@ -11,3 +11,5 @@ data:
       endpoint: otg-port-1.default.svc.cluster.local:5555+otg-port-1.default.svc.cluster.local:50071
     - location: eth2
       endpoint: otg-port-2.default.svc.cluster.local:5555+otg-port-2.default.svc.cluster.local:50071
+    - location: eth3
+      endpoint: otg-port-3.default.svc.cluster.local:5555+otg-port-3.default.svc.cluster.local:50071
