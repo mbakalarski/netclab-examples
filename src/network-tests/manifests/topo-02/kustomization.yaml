@@ -18,19 +18,19 @@ patches:
   patch: |-
     - op: replace
       path: /spec/template/spec/networks/1/multus/networkName
-      value: n1
+      value: b1
     - op: add
       path: /spec/template/spec/networks/2
       value:
         name: ge3
         multus:
-          networkName: n2
+          networkName: b2
     - op: add
       path: /spec/template/spec/networks/3
       value:
         name: ge4
         multus:
-          networkName: n3
+          networkName: b3
     - op: add
       path: /spec/template/spec/domain/devices/interfaces/2
       value:
@@ -71,7 +71,7 @@ patches:
   patch: |-
     - op: replace
       path: /metadata/annotations/k8s.v1.cni.cncf.io~1networks
-      value: n1@eth1
+      value: b1@eth1
 
 - target:
     kind: Pod
@@ -79,7 +79,7 @@ patches:
   patch: |-
     - op: replace
       path: /metadata/annotations/k8s.v1.cni.cncf.io~1networks
-      value: n2@eth2
+      value: b2@eth2
 
 - target:
     kind: Pod
@@ -87,4 +87,4 @@ patches:
   patch: |-
     - op: replace
       path: /metadata/annotations/k8s.v1.cni.cncf.io~1networks
-      value: n3@eth3
+      value: b3@eth3

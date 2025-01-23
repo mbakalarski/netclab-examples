@@ -11,6 +11,10 @@ spec:
           "type": "bridge",
           "bridge": "b1",
           "ipam": {}
+        },
+        {
+          "type": "accept-bridge",
+          "name": "b1"
         }
       ]
     }'
@@ -28,6 +32,31 @@ spec:
           "type": "bridge",
           "bridge": "b2",
           "ipam": {}
+        },
+        {
+          "type": "accept-bridge",
+          "name": "b2"
+        }
+      ]
+    }'
+---
+apiVersion: k8s.cni.cncf.io/v1
+kind: NetworkAttachmentDefinition
+metadata:
+  name: b3
+spec:
+  config: '{
+      "cniVersion": "0.3.1",
+      "name": "b3",
+      "plugins": [
+        {
+          "type": "bridge",
+          "bridge": "b3",
+          "ipam": {}
+        },
+        {
+          "type": "accept-bridge",
+          "name": "b3"
         }
       ]
     }'

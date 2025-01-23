@@ -6,3 +6,4 @@ resources:
 - csr02.yaml
 - csr01-image.yaml
 - csr02-image.yaml
+- csr01-day0.yaml

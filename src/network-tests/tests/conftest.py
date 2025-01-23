@@ -46,6 +46,7 @@ def b2b_config(api: snappi.Api):
     rx_port = config.ports.port(name="rx_port", location="eth2")[-1]
 
     f1 = config.flows.add(name="f1")
+    f1.duration.fixed_packets.packets = 10
     f1.tx_rx.port.tx_name = tx_port.name
     f1.metrics.enable = True
     f1.tx_rx.port.rx_names = [rx_port.name]
@@ -75,7 +76,22 @@ def b2b_device_config(api: snappi.Api):
     rx_eth = rx_dev.ethernets.add(name="Rx Eth", mac="00:00:01:00:00:02")
     rx_eth.connection.port_name = rx_port.name
 
-    # tx_eth.mac = "00:00:01:00:00:01"
-    # rx_eth.mac = "00:00:01:00:00:02"
+    tx_ip = tx_eth.ipv4_addresses.ipv4(
+        gateway="1.1.1.2",
+        address="1.1.1.1",
+        name="tx_ip",
+    )[-1]
+
+    rx_ip = rx_eth.ipv4_addresses.ipv4(
+        gateway="1.1.1.1",
+        address="1.1.1.2",
+        name="rx_ip",
+    )[-1]
+
+    f1 = config.flows.add(name="f1")
+    f1.duration.fixed_packets.packets = 10
+    f1.tx_rx.device.tx_names = [tx_ip.name]
+    f1.tx_rx.device.rx_names = [rx_ip.name]
+    f1.metrics.enable = True
 
     return config

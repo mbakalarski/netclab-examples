@@ -16,7 +16,7 @@ patches:
       value: dut
     - op: replace
       path: /metadata/annotations/k8s.v1.cni.cncf.io~1networks
-      value: n1@e1-1,n2@e1-2
+      value: b1@e1-1,b2@e1-2
 
 - target:
     kind: Pod
@@ -50,7 +50,7 @@ patches:
   patch: |-
     - op: replace
       path: /metadata/annotations/k8s.v1.cni.cncf.io~1networks
-      value: n1@eth1
+      value: b1@eth1
 
 - target:
     kind: Pod
@@ -58,4 +58,22 @@ patches:
   patch: |-
     - op: replace
       path: /metadata/annotations/k8s.v1.cni.cncf.io~1networks
-      value: n2@eth2
+      value: b2@eth2
+
+- target:
+    kind: Pod
+    name: otg-port-3
+  patch: |-
+    $patch: delete
+    kind: Pod
+    metadata:
+      name: otg-port-3
+
+- target:
+    kind: Service
+    name: otg-port-3
+  patch: |-
+    $patch: delete
+    kind: Service
+    metadata:
+      name: otg-port-3

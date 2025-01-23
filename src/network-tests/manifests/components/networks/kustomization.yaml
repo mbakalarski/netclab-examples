@@ -3,3 +3,4 @@ kind: Component
 
 resources:
 - pod2pod.yaml
+- bridges.yaml

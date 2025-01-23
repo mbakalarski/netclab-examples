@@ -12,6 +12,8 @@ Topologies are defined via k8s manifest files.
 ```
 git clone https://github.com/mbakalarski/network-tests.git
 cd network-tests
+python3 -m venv .venv
+source .venv/bin/activate
 pip install -e .
 ```
 
