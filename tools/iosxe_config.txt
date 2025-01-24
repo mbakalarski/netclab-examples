@@ -1,0 +1,39 @@
+!
+interface GigabitEthernet1
+ ip address dhcp
+ no shutdown
+ exit
+!
+!
+aaa new-model
+!         
+aaa authentication login default local
+aaa authentication login NOAUTH none
+aaa authorization exec default local
+!
+username netclab privilege 15 secret 9 $9$YPSw3yFDM.GDYU$VUD/ha1lPflLRuEk/mZsmU/aThwU0tBhRl27zOgLYfc
+!
+!
+!!! delay 30s for host/domain names from DHCP
+interface Loopback100
+ ip address 1.2.3.1 255.255.255.0
+ exit
+do ping 1.2.3.4
+do ping 1.2.3.4
+do ping 1.2.3.4
+no interface Loopback100
+!!!
+!
+!
+crypto key generate rsa modulus 2048
+!
+ip ssh version 2
+!
+!
+line con 0
+ login authentication NOAUTH
+!
+line vty 0 4
+ transport input ssh
+!
+end

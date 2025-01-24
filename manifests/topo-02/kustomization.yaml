@@ -4,7 +4,7 @@ kind: Kustomization
 
 components:
 - ../components/networks
-- ../components/csr
+- ../components/csr/csr01
 - ../components/ixia-c
 
 
@@ -41,29 +41,6 @@ patches:
       value:
         name: ge4
         bridge: {}
-
-
-- target:
-    group: kubevirt.io
-    version: v1
-    kind: VirtualMachine
-    name: csr02
-  patch: |-
-    $patch: delete
-    kind: VirtualMachine
-    metadata:
-      name: csr02
-
-- target:
-    group: cdi.kubevirt.io
-    version: v1beta1
-    kind: DataVolume
-    name: csr02
-  patch: |-
-    $patch: delete
-    kind: DataVolume
-    metadata:
-      name: csr02
 
 - target:
     kind: Pod

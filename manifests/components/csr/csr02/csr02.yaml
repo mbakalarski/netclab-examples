@@ -24,6 +24,9 @@ spec:
           - disk:
               bus: virtio
             name: disk0
+          - cdrom:
+              bus: sata
+            name: cdrom0
         resources:
           requests:
             memory: 4Gi
@@ -31,6 +34,9 @@ spec:
       - name: disk0
         persistentVolumeClaim:
           claimName: csr02
+      - name: cdrom0
+        persistentVolumeClaim:
+          claimName: csr02day0
       networks:
       - name: ge1
         multus:

@@ -22,6 +22,14 @@ Deploy topology:
 ```
 kubectl apply [-f|-k] <manifests for topology>
 ```
+or
+```
+tools/apply_delete_topology.sh apply <topology_dir>
+```
+e.g.
+```
+tools/apply_delete_topology.sh apply topo-02
+```
 
 Run tests:
 ```
