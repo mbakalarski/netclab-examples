@@ -33,6 +33,9 @@ spec:
         requests:
           cpu: 200m
           memory: 60Mi
+        limits:
+          cpu: 500m
+          memory: 120Mi
     - name: protocol-engine-3
       image: ghcr.io/open-traffic-generator/ixia-c-protocol-engine:latest
       env:
@@ -44,4 +47,7 @@ spec:
         requests:
           cpu: 200m
           memory: 350Mi
+        limits:
+          cpu: 400m
+          memory: 700Mi
   restartPolicy: Always
