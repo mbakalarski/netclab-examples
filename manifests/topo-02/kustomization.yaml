@@ -3,9 +3,11 @@ kind: Kustomization
 
 
 components:
-- ../components/networks
 - ../components/csr/csr01
 - ../components/ixia-c
+- ../components/networks/b1
+- ../components/networks/b2
+- ../components/networks/b3
 
 
 patches:
