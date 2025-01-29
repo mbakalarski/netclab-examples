@@ -5,6 +5,7 @@ kind: Kustomization
 components:
 - ../components/csr/csr01
 - ../components/ixia-c
+- ../components/networks/b0
 - ../components/networks/b1
 - ../components/networks/b2
 - ../components/networks/b3
@@ -18,6 +19,9 @@ patches:
     kind: VirtualMachine
     name: csr01
   patch: |-
+    - op: replace
+      path: /spec/template/spec/networks/0/multus/networkName
+      value: kube-system/b0
     - op: replace
       path: /spec/template/spec/networks/1/multus/networkName
       value: b1
