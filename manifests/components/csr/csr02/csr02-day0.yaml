@@ -11,4 +11,4 @@ spec:
         storage: 10Mi
   source:
     http:
-      url: http://172.18.0.1:8080/csr_config.iso
+      url: http://${HTTP_SERVER_IP}:8080/csr_config.iso
