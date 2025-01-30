@@ -29,10 +29,6 @@ spec:
               { "dst": "192.168.0.0/16" }
             ]
           }
-        },
-        {
-          "type": "accept-bridge",
-          "name": "b0"
         }
       ]
     }'

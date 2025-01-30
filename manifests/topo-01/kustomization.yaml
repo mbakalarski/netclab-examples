@@ -1,13 +1,15 @@
 apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
 
+
 components:
+- ../components/networks/b1
+- ../components/networks/b2
 - ../components/srlinux/srl01
 - ../components/ixia-c/controller
 - ../components/ixia-c/engine-1
 - ../components/ixia-c/engine-2
-- ../components/networks/b1
-- ../components/networks/b2
+
 
 patches:
 - target:

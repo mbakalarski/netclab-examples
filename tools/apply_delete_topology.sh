@@ -3,7 +3,10 @@ BASE_DIR=$(git rev-parse --show-toplevel)
 TOPOLOGY_DIR="${BASE_DIR}/manifests/${2}"
 OPERATION="${1}"
 
-export HTTP_SERVER_IP=$(docker network inspect kind | jq -r .[].IPAM.Config[].Gateway | grep -v ':')
+docker network ls | grep netclab && NETWORK="netclab"
+docker network ls | grep kind && NETWORK="kind"
+
+export HTTP_SERVER_IP=$(docker network inspect "${NETWORK}" | jq -r .[].IPAM.Config[].Gateway | grep -v ':')
 
 if [ ${OPERATION} == "apply" ]; then
   kubectl kustomize "$TOPOLOGY_DIR" | envsubst '$HTTP_SERVER_IP' | kubectl "$OPERATION" -f -
