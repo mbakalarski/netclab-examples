@@ -1,17 +1,17 @@
-# network-tests
+# netclab-examples
 
-This is collection of network tests.<br>
-Topologies are defined via k8s manifest files.
+Here is some Python code and YAML files for network tests.<br>
+Topologies are defined in K8S manifests.
 
 ## Prerequisites
 * Linux host or VM
 * netclab installed (https://github.com/mbakalarski/netclab)
 * Python 3.x
 
-## Install network-tests
+## Install netclab-examples
 ```
-git clone https://github.com/mbakalarski/network-tests.git
-cd network-tests
+git clone https://github.com/mbakalarski/netclab-examples.git
+cd netclab-examples
 python3 -m venv .venv
 source .venv/bin/activate
 pip install -e .
@@ -33,5 +33,5 @@ tools/apply_delete_topology.sh apply topo-02
 
 Run tests:
 ```
-pytest --pyargs network-tests
+pytest --pyargs netclab-examples
 ```
