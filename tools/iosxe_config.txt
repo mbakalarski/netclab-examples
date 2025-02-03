@@ -11,7 +11,7 @@ aaa authentication login default local
 aaa authentication login NOAUTH none
 aaa authorization exec default local
 !
-username netclab privilege 15 secret 9 $9$YPSw3yFDM.GDYU$VUD/ha1lPflLRuEk/mZsmU/aThwU0tBhRl27zOgLYfc
+username ${CSR_USER} privilege 15 secret 0 ${CSR_PASS}
 !
 !
 !!! delay 30s for host/domain names from DHCP

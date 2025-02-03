@@ -1,6 +1,7 @@
+.env
 venv
 .venv
-**/__pycache__
 dist
+__pycache__
 **/*.iso
-TODO*
+**/*.qcow2
