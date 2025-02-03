@@ -31,6 +31,16 @@ e.g.
 tools/apply_delete_topology.sh apply topo-02
 ```
 
+Add vars to ```.env``` file, e.g.:
+```
+cat << EOF > .env
+K8S_NAMESPACE="default"
+IMAGES_DIR="${HOME}/images"
+CSR_USER="netclab"
+CSR_PASS="cisco"
+EOF
+```
+
 Run tests:
 ```
 pytest --pyargs netclab-examples
