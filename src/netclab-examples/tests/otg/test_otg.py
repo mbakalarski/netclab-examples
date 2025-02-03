@@ -1,7 +1,9 @@
 import pytest
 from snappi import Config
 
-pytestmark = pytest.mark.filterwarnings("ignore:.*Unverified HTTPS request.*:")
+pytestmark = pytest.mark.filterwarnings(
+    "ignore::urllib3.exceptions.InsecureRequestWarning"
+)
 
 
 def test_before_configured_otg(otg01_api):
