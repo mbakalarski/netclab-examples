@@ -1,6 +1,5 @@
 from pathlib import Path
 
-import pytest
 import snappi
 from dotenv import dotenv_values
 from kubernetes import client as k8s_client
