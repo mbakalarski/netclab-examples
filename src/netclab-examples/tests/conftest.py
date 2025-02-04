@@ -46,7 +46,7 @@ def csr(k8s_name: str) -> Device:
 
 def configure_csr(csr: Device, filepath: Path) -> Device:
     with open(filepath) as f:
-        csr.configure(f.readlines())
+        csr.cli.configure(f.readlines())
 
 
 def unconfigure_csr(csr: Device):
@@ -68,25 +68,24 @@ def otg_api(k8s_svc: str, port_name, transport):
 
 
 def otg_http_api(k8s_svc: str):
-    api = otg_api(k8s_svc, "https", snappi.Transport.HTTP)
-    return api
+    return otg_api(k8s_svc, "https", snappi.Transport.HTTP)
 
 
 def otg_grpc_api(k8s_svc: str):
     return otg_api(k8s_svc, "grpc", snappi.Transport.GRPC)
 
 
-def configure_otg(otg_api: snappi.Api, filepath: Path):
-    config: snappi.Config = otg_api.config()
+def configure_otg(api: snappi.Api, filepath: Path):
+    config: snappi.Config = api.config()
     with open(filepath) as f:
         payload = config.deserialize(f.read())
-    otg_api.set_config(payload)
+    api.set_config(payload)
 
 
-def unconfigure_otg(otg_api: snappi.Api):
-    config: snappi.Config = otg_api.config()
+def unconfigure_otg(api: snappi.Api):
+    config: snappi.Config = api.config()
     payload = config.deserialize("{}")
-    otg_api.set_config(payload)
+    api.set_config(payload)
 
 
 # @pytest.fixture
