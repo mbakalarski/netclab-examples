@@ -1,5 +1,6 @@
 from pathlib import Path
 
+import pytest
 import snappi
 from dotenv import dotenv_values
 from kubernetes import client as k8s_client
@@ -86,6 +87,33 @@ def unconfigure_otg(api: snappi.Api):
     config: snappi.Config = api.config()
     payload = config.deserialize("{}")
     api.set_config(payload)
+
+
+def pytest_configure(config: pytest.Config):
+    config.addinivalue_line("markers", "csr_and_file")
+    config.addinivalue_line("markers", "otg_and_file")
+
+
+@pytest.fixture
+def configured_csr(request):
+    marker_args = request.node.get_closest_marker("csr_and_file").args
+    csr_name, cfg_file = marker_args
+    csr_dev = csr(csr_name)
+    csr_dev.connect()
+    configure_csr(csr_dev, cfg_file)
+    yield csr_dev
+    unconfigure_csr(csr_dev)
+    csr_dev.disconnect()
+
+
+@pytest.fixture
+def configured_otg(request):
+    marker_args = request.node.get_closest_marker("otg_and_file").args
+    otg_name, cfg_file = marker_args
+    otg_api = otg_http_api(otg_name)
+    configure_otg(otg_api, cfg_file)
+    yield otg_api
+    unconfigure_otg(otg_api)
 
 
 # @pytest.fixture

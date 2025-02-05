@@ -1,0 +1,141 @@
+options:
+  port_options:
+    location_preemption: true
+
+ports:
+- location: eth1
+  name: p1
+- location: eth2
+  name: p2
+- location: eth3
+  name: p3
+
+devices:
+- name: dev1
+  ethernets:
+  - name: e1
+    mac: 00:00:01:00:00:01
+    mtu: 1500
+    connection:
+      choice: port_name
+      port_name: p1
+    ipv6_addresses:
+    - name: ipv6e1
+      address: FC01::254
+      gateway: FC01::1
+      prefix: 64
+  bgp:
+    router_id: 11.11.11.11
+    ipv6_interfaces:
+    - ipv6_name: ipv6e1
+      peers:
+      - name: rx1bgp_peer
+        peer_address: FC01::1
+        as_number: 65000
+        as_number_width: two
+        as_type: ebgp
+        advanced:
+          hold_time_interval: 90
+          keep_alive_interval: 30
+          listen_port: 179
+          neighbor_port: 179
+          passive_mode: false
+          time_to_live: 64
+          update_interval: 0
+        capability:
+          evpn: false
+          extended_next_hop_encoding: false
+          ipv4_mdt: false
+          ipv4_mpls_vpn: false
+          ipv4_multicast: false
+          ipv4_multicast_mpls_vpn: false
+          ipv4_multicast_vpn: false
+          ipv4_sr_te_policy: false
+          ipv4_unicast: false
+          ipv4_unicast_add_path: false
+          ipv4_unicast_flow_spec: false
+          ipv6_mdt: false
+          ipv6_mpls_vpn: false
+          ipv6_multicast: false
+          ipv6_multicast_mpls_vpn: false
+          ipv6_multicast_vpn: false
+          ipv6_sr_te_policy: false
+          ipv6_unicast: true
+          ipv6_unicast_add_path: false
+          ipv6_unicast_flow_spec: false
+          link_state_non_vpn: false
+          link_state_vpn: false
+          route_constraint: false
+          route_refresh: true
+          vpls: false
+        v6_routes:
+        - name: bgp_routes
+          addresses:
+          - address: 2001::1
+            count: 1
+            prefix: 64
+            step: 1
+          next_hop_address_type: ipv6
+          next_hop_ipv4_address: 0.0.0.0
+          next_hop_ipv6_address: ::0
+          next_hop_mode: local_ip
+          as_path:
+            as_set_mode: prepend_to_first_segment
+            segments:
+            - as_numbers:
+              - 65000
+              type: as_seq
+          advanced:
+            include_local_preference: false
+            include_multi_exit_discriminator: true
+            include_origin: true
+            local_preference: 100
+            origin: igp
+
+- name: dev2
+  ethernets:
+  - name: e2
+    mac: 00:00:02:00:00:02
+    mtu: 1500
+    connection:
+      choice: port_name
+      port_name: p2
+    ipv6_addresses:
+    - name: ipv6e2
+      address: FC02::254
+      gateway: FC02::1
+      prefix: 64
+
+- name: dev3
+  ethernets:
+  - name: e3
+    mac: 00:00:03:00:00:03
+    mtu: 1500
+    connection:
+      choice: port_name
+      port_name: p3
+    ipv6_addresses:
+    - name: ipv6e3
+      address: FC03::254
+      gateway: FC03::1
+      prefix: 64
+
+flows:
+- name: f1
+  duration:
+    choice: fixed_packets
+    fixed_packets:
+      gap: 12
+      packets: 10
+  metrics:
+    enable: true
+    loss: false
+    timestamps: false
+  tx_rx:
+    choice: device
+    device:
+      mode: mesh
+      rx_names:
+      - bgp_routes
+      tx_names:
+      - ipv6e2

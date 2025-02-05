@@ -1,0 +1,20 @@
+!
+ipv6 unicast-routing
+!
+interface GigabitEthernet2
+ ipv6 address FC01::1/64
+ no shutdown
+!
+interface GigabitEthernet3
+ ipv6 address FC02::1/64
+ no shutdown
+!
+router bgp 65001
+ bgp log-neighbor-changes
+ no bgp default ipv4-unicast
+ neighbor FC01::254 remote-as 65000
+ !
+ address-family ipv6
+  neighbor FC01::254 activate
+ exit-address-family
+!

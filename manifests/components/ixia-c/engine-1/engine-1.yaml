@@ -22,7 +22,7 @@ spec:
         - name: OPT_LISTEN_PORT
           value: "5555"
         - name: ARG_CORE_LIST
-          value: 1 1 1
+          value: 5 6 7
         - name: DEFAULT_PORT_SPEED
           value: "1000"
         - name: WAIT_FOR_IFACE
