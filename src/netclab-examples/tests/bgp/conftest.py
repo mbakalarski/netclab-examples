@@ -45,6 +45,7 @@ def configured_otg01(otg01):
     yield otg01
     # unconfigure_otg(otg01)
 
+
 @pytest.fixture
 def unconfigured_otg01(otg01):
     unconfigure_otg(otg01)
