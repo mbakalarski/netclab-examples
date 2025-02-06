@@ -14,11 +14,12 @@ spec:
       domain:
         cpu:
           sockets: 1
-          cores: 1
-          threads: 2
+          cores: 2
+          threads: 1
           dedicatedCpuPlacement: true
           isolateEmulatorThread: true
         devices:
+          autoattachGraphicsDevice: false
           interfaces:
           - name: ge1
             bridge: {}
