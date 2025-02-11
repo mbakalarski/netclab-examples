@@ -1,3 +1,4 @@
+import time
 from pathlib import Path
 
 import pytest
@@ -25,6 +26,7 @@ def csr01():
 @pytest.fixture
 def configured_csr01(csr01):
     configure_csr(csr01, Path(__file__).parent / "csr01_config.txt")
+    time.sleep(20) # TODO: wait for ints and bgp to be UP
     yield csr01
     unconfigure_csr(csr01)
 
