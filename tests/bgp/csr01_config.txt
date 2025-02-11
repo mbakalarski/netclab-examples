@@ -1,0 +1,18 @@
+!
+!
+interface GigabitEthernet2
+ ip address 192.0.2.2 255.255.255.252
+ no shutdown
+!
+interface GigabitEthernet3
+ ip address 192.0.2.6 255.255.255.252
+ no shutdown
+!
+router bgp 1112
+ bgp log-neighbor-changes
+ neighbor 192.0.2.1 remote-as 1111
+ !
+ address-family ipv4
+  neighbor 192.0.2.1 activate
+ exit-address-family
+!

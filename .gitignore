@@ -5,3 +5,4 @@ dist
 __pycache__
 **/*.iso
 **/*.qcow2
+**/_[a-zA-Z]*

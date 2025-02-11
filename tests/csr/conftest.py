@@ -2,7 +2,7 @@ from pathlib import Path
 
 import pytest
 
-from ..conftest import configure_csr, csr, unconfigure_csr
+from test_helpers.csr import configure_csr, csr, unconfigure_csr
 
 
 @pytest.fixture(scope="session")

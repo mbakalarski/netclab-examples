@@ -2,7 +2,8 @@ from pathlib import Path
 
 import pytest
 
-from ..conftest import configure_otg, otg_http_api, unconfigure_otg
+from test_helpers.otg import configure_otg, otg_http_api, unconfigure_otg
+
 
 
 @pytest.fixture(scope="session")

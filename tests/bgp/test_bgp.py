@@ -8,7 +8,7 @@ pytestmark = pytest.mark.filterwarnings(
 
 def test_bgp_0a(unconfigured_csr01):
     out = unconfigured_csr01.cli.execute("show run | in router")
-    assert "router bgp 6501" not in out
+    assert "router bgp" not in out
 
 
 def test_bgp_0b(unconfigured_otg01):
@@ -16,19 +16,29 @@ def test_bgp_0b(unconfigured_otg01):
     assert len(otg_config) == 0
 
 
-def test_bgp_1(configured_otg01):
+def test_bgp_1a(configured_csr01):
+    out = configured_csr01.cli.execute("show run | in router")
+    assert "router bgp" in out
+
+
+def test_bgp_1b(configured_otg01):
     otg_config = configured_otg01.get_config().serialize(encoding=Config.DICT)
     assert len(otg_config) != 0
 
 
-def test_bgp_2(configured_otg01, otg01_protocol_started, otg01_traffic_started):
+def test_bgp_1c(configured_csr01, configured_otg01):
+    out = configured_csr01.cli.execute("show run | in router")
+    otg_config = configured_otg01.get_config().serialize(encoding=Config.DICT)
+    assert len(otg_config) != 0 and "router bgp" in out
+
+
+def test_bgp_2(
+    configured_csr01,
+    configured_otg01,
+    otg01_protocol_started,
+    otg01_traffic_started,
+):
     assert True
-
-
-# def test_bgp(configured_csr01, configured_otg01):
-#     out = configured_csr01.cli.execute("show run | in router")
-#     otg_config = configured_otg01.get_config().serialize(encoding=Config.DICT)
-#     assert len(otg_config) != 0 and "router bgp 6501" in out
 
 
 # from pathlib import Path
