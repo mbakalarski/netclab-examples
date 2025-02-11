@@ -2,8 +2,16 @@ from pathlib import Path
 
 import pytest
 
-from test_helpers.csr import configure_csr, csr, unconfigure_csr
-from test_helpers.otg import configure_otg, otg_http_api, unconfigure_otg
+from netclab_examples.test_helpers.csr import (
+    configure_csr,
+    csr,
+    unconfigure_csr,
+)
+from netclab_examples.test_helpers.otg import (
+    configure_otg,
+    otg_http_api,
+    unconfigure_otg,
+)
 
 
 @pytest.fixture(scope="session")

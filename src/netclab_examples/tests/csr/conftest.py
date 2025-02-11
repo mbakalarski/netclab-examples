@@ -2,7 +2,11 @@ from pathlib import Path
 
 import pytest
 
-from test_helpers.csr import configure_csr, csr, unconfigure_csr
+from netclab_examples.test_helpers.csr import (
+    configure_csr,
+    csr,
+    unconfigure_csr,
+)
 
 
 @pytest.fixture(scope="session")
