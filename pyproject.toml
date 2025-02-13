@@ -24,6 +24,7 @@ dependencies = [
     "kubernetes>=31.0.0",
     "python-dotenv>=1.0.1",
     "pyats>=24.11",
+    "waiting>=1.5.0",
 ]
 
 
@@ -37,4 +38,9 @@ addopts = [
 ]
 filterwarnings = [
     "ignore::DeprecationWarning",
+    "ignore::urllib3.exceptions.InsecureRequestWarning",
+]
+markers = [
+    "csrcfg: csr configuration file name",
+    "otgcfg: otg configuration file name",
 ]

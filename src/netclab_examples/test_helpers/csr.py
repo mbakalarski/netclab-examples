@@ -6,7 +6,7 @@ from pyats.topology.device import Device
 from ..test_helpers.k8s import ext_ip
 
 
-def csr(k8s_name: str) -> Device:
+def csr_device(k8s_name: str) -> Device:
     env = dotenv_values()
     csr_ip = ext_ip(k8s_name, env.get("K8S_NAMESPACE"))
     csr = Device(
@@ -36,3 +36,8 @@ def configure_csr(csr: Device, filepath: Path) -> Device:
 
 def unconfigure_csr(csr: Device):
     csr.cli.execute("configure replace nvram:startup-config force")
+
+
+def bgp_sessions_up(csr: Device):
+    out = csr.cli.execute("show bgp all neighbors | in state =")
+    return True if "down" not in out and "Established" in out else False

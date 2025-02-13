@@ -39,3 +39,12 @@ def unconfigure_otg(api: snappi.Api):
     config: snappi.Config = api.config()
     payload = config.deserialize("{}")
     api.set_config(payload)
+
+
+def otg_transmit_stopped(otg_http_api: snappi.Api, flow_names: list):
+    mreq = otg_http_api.metrics_request()
+    mreq.flow.flow_names = flow_names
+    mres: snappi.MetricsResponse = otg_http_api.get_metrics(mreq)
+    miter: snappi.FlowMetricIter = mres.flow_metrics[0]
+    print("FLOW METRICS", miter, sep="\n")
+    return miter.transmit == miter.STOPPED

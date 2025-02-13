@@ -4,14 +4,14 @@ import pytest
 
 from netclab_examples.test_helpers.csr import (
     configure_csr,
-    csr,
+    csr_device,
     unconfigure_csr,
 )
 
 
 @pytest.fixture(scope="session")
 def csr01():
-    csr01 = csr("csr01")
+    csr01 = csr_device("csr01")
     csr01.connect()
     yield csr01
     csr01.disconnect()

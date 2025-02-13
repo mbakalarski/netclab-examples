@@ -1,0 +1,131 @@
+ports:
+- location: eth1
+  name: p1
+- location: eth2
+  name: p2
+devices:
+  - ethernets:
+      - connection:
+          choice: port_name
+          port_name: p1
+        ipv6_addresses:
+          - gateway: FC00::C000:202
+            address: FC00::C000:201
+            prefix: 126
+            name: otg1.eth[0].ipv6[0]
+        mac: 02:00:00:00:01:aa
+        mtu: 1500
+        name: otg1.eth[0]
+    bgp:
+      router_id: 1.1.1.1
+      ipv6_interfaces:
+        - ipv6_name: otg1.eth[0].ipv6[0]
+          peers:
+            - peer_address: FC00::C000:202
+              as_type: ebgp
+              as_number: 1111
+              as_number_width: four
+              v6_routes:
+                - addresses:
+                    - address: FC00::C633:6400
+                      prefix: 120
+                      count: 1
+                      step: 1
+                  next_hop_mode: manual
+                  next_hop_address_type: ipv6
+                  next_hop_ipv6_address: FC00::C000:201
+                  name: otg1.bgp6.peer[0].rr6
+              name: otg1.bgp6.peer[0]
+    name: otg1
+  - ethernets:
+      - connection:
+          choice: port_name
+          port_name: p2
+        ipv6_addresses:
+          - gateway: FC00::C000:206
+            address: FC00::C000:205
+            prefix: 126
+            name: otg2.eth[0].ipv6[0]
+        mac: 02:00:00:00:02:aa
+        mtu: 1500
+        name: otg2.eth[0]
+    bgp:
+      router_id: 2.2.2.2
+      ipv6_interfaces:
+        - ipv6_name: otg2.eth[0].ipv6[0]
+          peers:
+            - peer_address: FC00::C000:206
+              as_type: ebgp
+              as_number: 2222
+              as_number_width: four
+              v6_routes:
+                - addresses:
+                    - address: FC00::CB00:7100
+                      prefix: 120
+                      count: 1
+                      step: 1
+                  next_hop_mode: manual
+                  next_hop_address_type: ipv6
+                  next_hop_ipv6_address: FC00::C000:205
+                  name: otg2.bgp6.peer[0].rr6
+              name: otg2.bgp6.peer[0]
+    name: otg2
+flows:
+  - tx_rx:
+      choice: device
+      device:
+        mode: mesh
+        tx_names:
+          - otg1.eth[0].ipv6[0]
+        rx_names:
+          - otg2.eth[0].ipv6[0]
+    packet:
+      - choice: ethernet
+        ethernet:
+          src:
+            choice: value
+            value: 02:00:00:00:01:aa
+      - choice: ipv6
+        ipv6:
+          version:
+            choice: value
+            value: 6
+          src:
+            choice: increment
+            increment:
+              start: FC00::C633:6401
+              count: 253
+              step: ::01
+          dst:
+            choice: increment
+            increment:
+              start: FC00::CB00:7101
+              count: 253
+              step: ::01
+      - choice: tcp
+        tcp:
+          src_port:
+            choice: increment
+            increment:
+              start: 1024
+              step: 7
+              count: 64511
+          dst_port:
+            choice: value
+            value: 7
+    size:
+      choice: fixed
+      fixed: 256
+    rate:
+      choice: pps
+      pps: "1000"
+    duration:
+      choice: fixed_packets
+      fixed_packets:
+        packets: 1000
+        gap: 12
+    metrics:
+      enable: true
+      loss: false
+      timestamps: false
+    name: f1

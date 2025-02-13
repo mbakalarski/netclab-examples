@@ -43,5 +43,5 @@ EOF
 
 Run tests:
 ```
-pytest --pyargs netclab-examples
+pytest --pyargs netclab_examples
 ```
