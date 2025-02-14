@@ -32,11 +32,12 @@ def csr01_unconfigured(csr01):
 
 
 @pytest.fixture
-def csr01_configured(csr01, request):
+def csr01_configured(csr01_unconfigured, request):
     fname = request.node.get_closest_marker("csrcfg").args[0]
-    configure_csr(csr01, Path(__file__).parent / fname)
-    yield csr01
-    unconfigure_csr(csr01)
+    configure_csr(csr01_unconfigured, Path(__file__).parent / fname)
+    csr01_configured = csr01_unconfigured
+    yield csr01_configured
+    unconfigure_csr(csr01_configured)
 
 
 @pytest.fixture
@@ -62,11 +63,12 @@ def otg01_unconfigured(otg01):
 
 
 @pytest.fixture
-def otg01_configured(otg01, request):
+def otg01_configured(otg01_unconfigured, request):
     cfg = request.node.get_closest_marker("otgcfg").args[0]
-    configure_otg(otg01, Path(__file__).parent / cfg)
-    yield otg01
-    # unconfigure_otg(otg01)
+    configure_otg(otg01_unconfigured, Path(__file__).parent / cfg)
+    otg01_configured = otg01_unconfigured
+    yield otg01_configured
+    # unconfigure_otg(otg01_configured)
 
 
 @pytest.fixture
