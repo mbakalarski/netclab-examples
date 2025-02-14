@@ -21,12 +21,12 @@ spec:
           value: "Yes"
         - name: OPT_LISTEN_PORT
           value: "5555"
-        # - name: ARG_CORE_LIST
-        #   value: 3 4 5
-        # - name: DEFAULT_PORT_SPEED
-        #   value: "1000"
-        # - name: WAIT_FOR_IFACE
-        #   value: "Yes"
+        - name: ARG_CORE_LIST
+          value: 7 7 7
+        - name: DEFAULT_PORT_SPEED
+          value: "1000"
+        - name: WAIT_FOR_IFACE
+          value: "Yes"
       securityContext:
         privileged: true
       resources:
