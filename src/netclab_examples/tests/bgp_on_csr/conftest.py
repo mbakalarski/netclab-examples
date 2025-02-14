@@ -68,7 +68,7 @@ def otg01_configured(otg01_unconfigured, request):
     configure_otg(otg01_unconfigured, Path(__file__).parent / cfg)
     otg01_configured = otg01_unconfigured
     yield otg01_configured
-    # unconfigure_otg(otg01_configured)
+    unconfigure_otg(otg01_configured)
 
 
 @pytest.fixture

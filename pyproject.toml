@@ -43,4 +43,5 @@ filterwarnings = [
 markers = [
     "csrcfg: csr configuration file name",
     "otgcfg: otg configuration file name",
+    "topo_02: tests on topo-02",
 ]
