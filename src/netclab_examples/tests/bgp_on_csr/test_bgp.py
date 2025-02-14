@@ -1,8 +1,8 @@
 import pytest
 import snappi
 
-csr_cfg_fname = "csr_bgpv6.cfg"
-otg_cfg_fname = "otg_bgpv6.yaml"
+csr_cfg_fname = "csr_bgpv4.cfg"
+otg_cfg_fname = "otg_bgpv4.yaml"
 
 
 def test_bgp_0a(csr01_unconfigured):
@@ -24,6 +24,7 @@ def test_bgp_1a(csr01_configured):
 @pytest.mark.otgcfg(otg_cfg_fname)
 def test_bgp_1b(otg01_configured):
     otg_config = otg01_configured.get_config().serialize(encoding=snappi.Config.DICT)
+    # otg_config = otg01_configured.get_config().serialize(encoding='dict')
     assert len(otg_config) != 0
 
 
@@ -32,23 +33,27 @@ def test_bgp_1b(otg01_configured):
 def test_bgp_1c(
     csr01_configured,
     otg01_configured,
-    otg01_with_protocol_started,
-    csr01_with_bgp_sessions_up,
 ):
     out = csr01_configured.cli.execute("show run | in router")
-    otg_config = otg01_configured.get_config().serialize(encoding=snappi.Config.DICT)
+    # otg_config = otg01_configured.get_config().serialize(encoding=snappi.Config.DICT)
+    otg_config = otg01_configured.get_config().serialize(encoding='dict')
     assert len(otg_config) != 0 and "router bgp" in out
 
 
 @pytest.mark.csrcfg(csr_cfg_fname)
 @pytest.mark.otgcfg(otg_cfg_fname)
-def test_bgp_2(
-    csr01_configured,
-    otg01_configured,
+def test_bgp_1d(
     otg01_with_protocol_started,
     csr01_with_bgp_sessions_up,
-    otg01_with_traffic_started,
-    otg01_with_metrics_ready: snappi.Api,
+):
+    assert True
+
+
+@pytest.mark.csrcfg(csr_cfg_fname)
+@pytest.mark.otgcfg(otg_cfg_fname)
+def test_bgp_2(
+    csr01_with_bgp_sessions_up,
+    otg01_with_metrics_ready,
 ):
     mreq: snappi.MetricsRequest = otg01_with_metrics_ready.metrics_request()
     mreq.flow.flow_names = ["f1"]
