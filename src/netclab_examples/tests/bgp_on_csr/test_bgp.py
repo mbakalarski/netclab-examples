@@ -48,6 +48,7 @@ def test_traffic_metrics_ok(csr01_with_bgp_sessions_up, otg01_with_metrics_ready
     mreq = otg01_with_metrics_ready.metrics_request()
     mreq.flow.flow_names = ["f1"]
     mresp = otg01_with_metrics_ready.get_metrics(mreq)
-    print(mresp.serialize(encoding="dict"))
-
-    assert True
+    assert (
+        mresp.serialize(encoding="dict").get("flow_metrics")[0]["frames_tx"]
+        == mresp.serialize(encoding="dict").get("flow_metrics")[0]["frames_rx"]
+    )
