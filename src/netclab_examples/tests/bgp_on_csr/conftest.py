@@ -95,4 +95,6 @@ def otg01_with_metrics_ready(otg01_with_traffic_started):
         timeout_seconds=60,
         waiting_for="otg transmit stopped",
     )
-    return otg01_with_traffic_started
+
+    otg01_with_metrics_ready = otg01_with_traffic_started
+    return otg01_with_metrics_ready
