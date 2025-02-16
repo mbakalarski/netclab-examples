@@ -3,6 +3,7 @@ kind: Kustomization
 
 
 components:
+- ../components/networks/b0
 - ../components/networks/p1
 - ../components/ixia-c/controller
 - ../components/ixia-c/engine-1
@@ -10,10 +11,22 @@ components:
 
 
 patches:
+
+- target:
+    kind: Pod
+    name: otg-controller
+  patch: |-
+    - op: replace
+      path: /metadata/annotations/v1.multus-cni.io~1default-network
+      value: b0@eth0
+
 - target:
     kind: Pod
     name: otg-port-1
   patch: |-
+    - op: replace
+      path: /metadata/annotations/v1.multus-cni.io~1default-network
+      value: b0@eth0
     - op: replace
       path: /metadata/annotations/k8s.v1.cni.cncf.io~1networks
       value: p1@eth1
@@ -23,23 +36,8 @@ patches:
     name: otg-port-2
   patch: |-
     - op: replace
+      path: /metadata/annotations/v1.multus-cni.io~1default-network
+      value: b0@eth0
+    - op: replace
       path: /metadata/annotations/k8s.v1.cni.cncf.io~1networks
       value: p1@eth2
-
-- target:
-    kind: Pod
-    name: otg-port-3
-  patch: |-
-    $patch: delete
-    kind: Pod
-    metadata:
-      name: otg-port-3
-
-- target:
-    kind: Service
-    name: otg-port-3
-  patch: |-
-    $patch: delete
-    kind: Service
-    metadata:
-      name: otg-port-3

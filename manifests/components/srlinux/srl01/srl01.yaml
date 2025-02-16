@@ -31,8 +31,8 @@ spec:
         memory: 4Gi
         cpu: 2000m
       requests:
-        memory: 2Gi
-        cpu: 800m
+        memory: 4Gi
+        cpu: 2000m
     volumeMounts:
       - mountPath: /tmp/topology.yml
         subPath: topology.yml

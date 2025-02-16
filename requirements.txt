@@ -1,0 +1,7 @@
+pytest>=8.3.4
+snappi>=1.19.1
+kubernetes>=31.0.0
+python-dotenv>=1.0.1
+pyats>=24.11
+waiting>=1.5.0
+pytest-ansible>=25.1.0
