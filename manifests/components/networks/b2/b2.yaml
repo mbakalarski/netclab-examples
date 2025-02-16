@@ -11,6 +11,10 @@ spec:
           "type": "bridge",
           "bridge": "b2",
           "ipam": {}
+        },
+        {
+          "type": "accept-bridge",
+          "bridge": "b2"
         }
       ]
     }'

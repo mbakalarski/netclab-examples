@@ -3,30 +3,42 @@ kind: Kustomization
 
 
 components:
+- ../components/networks/b0
 - ../components/networks/b1
 - ../components/networks/b2
+- ../components/networks/b3
 - ../components/srlinux/srl01
-- ../components/ixia-c/controller
-- ../components/ixia-c/engine-1
-- ../components/ixia-c/engine-2
+- ../components/ixia-c
 
 
 patches:
+
 - target:
     kind: Pod
     name: srl01
   patch: |-
     - op: replace
-      path: /metadata/name
-      value: dut
+      path: /metadata/annotations/v1.multus-cni.io~1default-network
+      value: b0
     - op: replace
       path: /metadata/annotations/k8s.v1.cni.cncf.io~1networks
-      value: b1@e1-1,b2@e1-2
+      value: b1@e1-1,b2@e1-2,b3@e1-3
+
+- target:
+    kind: Pod
+    name: otg-controller
+  patch: |-
+    - op: replace
+      path: /metadata/annotations/v1.multus-cni.io~1default-network
+      value: b0@eth0
 
 - target:
     kind: Pod
     name: otg-port-1
   patch: |-
+    - op: replace
+      path: /metadata/annotations/v1.multus-cni.io~1default-network
+      value: b0@eth0
     - op: replace
       path: /metadata/annotations/k8s.v1.cni.cncf.io~1networks
       value: b1@eth1
@@ -36,6 +48,9 @@ patches:
     name: otg-port-2
   patch: |-
     - op: replace
+      path: /metadata/annotations/v1.multus-cni.io~1default-network
+      value: b0@eth0
+    - op: replace
       path: /metadata/annotations/k8s.v1.cni.cncf.io~1networks
       value: b2@eth2
 
@@ -43,16 +58,9 @@ patches:
     kind: Pod
     name: otg-port-3
   patch: |-
-    $patch: delete
-    kind: Pod
-    metadata:
-      name: otg-port-3
-
-- target:
-    kind: Service
-    name: otg-port-3
-  patch: |-
-    $patch: delete
-    kind: Service
-    metadata:
-      name: otg-port-3
+    - op: replace
+      path: /metadata/annotations/v1.multus-cni.io~1default-network
+      value: b0@eth0
+    - op: replace
+      path: /metadata/annotations/k8s.v1.cni.cncf.io~1networks
+      value: b3@eth3

@@ -1,30 +1,25 @@
 [build-system]
-requires = ["hatchling"]
+requires = ["hatchling", "hatch-requirements-txt"]
 build-backend = "hatchling.build"
 
+[tool.hatch.metadata.hooks.requirements_txt]
+files = ["requirements.txt"]
+
 [project]
+dynamic = ["dependencies"]
 name = "netclab-examples"
 version = "0.0.1"
 description = "Network tests on netclab"
 readme = "README.md"
 requires-python = ">=3.12"
 license = "MIT"
+license-files = ["LICENSE"]
 authors = [
     { name = "mbakalarski at github" }
 ]
 classifiers = [
     "Programming Language :: Python :: 3",
     "Operating System :: POSIX :: Linux",
-]
-
-
-dependencies = [
-    "pytest>=8.3.4",
-    "snappi>=1.19.1",
-    "kubernetes>=31.0.0",
-    "python-dotenv>=1.0.1",
-    "pyats>=24.11",
-    "waiting>=1.5.0",
 ]
 
 
@@ -43,5 +38,6 @@ filterwarnings = [
 markers = [
     "csrcfg: csr configuration file name",
     "otgcfg: otg configuration file name",
+    "topo_01: tests on topo-01",
     "topo_02: tests on topo-02",
 ]

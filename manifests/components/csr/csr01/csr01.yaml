@@ -12,12 +12,12 @@ spec:
         kubevirt.io/domain: csr01
     spec:
       domain:
-        cpu:
-          sockets: 1
-          cores: 2
-          threads: 1
-          dedicatedCpuPlacement: true
-          isolateEmulatorThread: true
+        # cpu:
+        #   sockets: 1
+        #   cores: 2
+        #   threads: 1
+        #   dedicatedCpuPlacement: true
+        #   isolateEmulatorThread: true
         devices:
           autoattachGraphicsDevice: false
           interfaces:
@@ -34,8 +34,10 @@ spec:
             name: cdrom0
         resources:
           requests:
+            cpu: 2
             memory: 4Gi
           limits:
+            cpu: 2
             memory: 4Gi
       volumes:
       - name: disk0
