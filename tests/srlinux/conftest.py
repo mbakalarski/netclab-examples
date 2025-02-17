@@ -1,66 +1,64 @@
 from pathlib import Path
 
 import pytest
+from snappi import Api as SnappiApi
 from waiting import wait
 
-from tests.utils.otg import (
-    configure_otg,
-    otg_http_api,
-    otg_transmit_stopped,
-    unconfigure_otg,
-)
+import tests.utils.otg as otg
 
 
 @pytest.fixture(scope="session")
-def otg01():
-    otg01 = otg_http_api("otg-controller")
+def otg01() -> SnappiApi:
+    otg01 = otg.http_api("otg-controller")
     return otg01
 
 
 @pytest.fixture
-def otg01_unconfigured(otg01):
-    # unconfigure_otg(otg01)
-    return otg01
+def otg01_unconfigured(otg01: SnappiApi) -> SnappiApi:
+    otg.unconfigure(otg01)
+    yield otg01
+    otg.unconfigure(otg01)
 
 
 @pytest.fixture
-def otg01_configured(otg01_unconfigured, request):
+def otg01_configured(otg01_unconfigured: SnappiApi, request) -> SnappiApi:
     cfg = request.node.get_closest_marker("otgcfg").args[0]
-    configure_otg(otg01_unconfigured, Path(__file__).parent / cfg)
+    otg.configure(otg01_unconfigured, Path(__file__).parent / cfg)
     otg01_configured = otg01_unconfigured
     return otg01_configured
 
 
 @pytest.fixture
-def otg01_with_protocol_started(otg01_configured):
-    ps = otg01_configured.control_state()
-    ps.protocol.all.state = ps.protocol.all.START
-    otg01_configured.set_control_state(ps)
+def otg01_with_protocol_started(otg01_configured: SnappiApi) -> SnappiApi:
+    otg.start_all_protocols(otg01_configured)
     otg01_with_protocol_started = otg01_configured
     return otg01_with_protocol_started
 
 
 @pytest.fixture
-def otg01_with_traffic_started(otg01_configured):
-    ts = otg01_configured.control_state()
-    ts.traffic.flow_transmit.state = ts.traffic.flow_transmit.START
-    ts.traffic.flow_transmit.flow_names = ["f1"]
-    otg01_configured.set_control_state(ts)
+def otg01_with_bgpv4_converged(otg01_with_protocol_started: SnappiApi) -> SnappiApi:
+    wait(
+        lambda: otg.is_bgpv4_converged(otg01_with_protocol_started),
+        timeout_seconds=30,
+        waiting_for="bgp convergence",
+    )
+    otg01_with_bgpv4_converged = otg01_with_protocol_started
+    return otg01_with_bgpv4_converged
+
+
+@pytest.fixture
+def otg01_with_traffic_started(otg01_configured: SnappiApi) -> SnappiApi:
+    otg.start_traffic_flow(otg01_configured, "f1")
     otg01_with_traffic_started = otg01_configured
     return otg01_with_traffic_started
 
 
 @pytest.fixture
-def otg01_with_metrics_ready(otg01_with_traffic_started):
+def otg01_with_traffic_stopped(otg01_with_traffic_started: SnappiApi) -> SnappiApi:
     wait(
-        lambda: otg_transmit_stopped(otg01_with_traffic_started, ["f1"]),
+        lambda: otg.is_transmit_stopped(otg01_with_traffic_started, ["f1"]),
         timeout_seconds=60,
         waiting_for="otg transmit stopped",
     )
-
-    import time
-
-    time.sleep(10)
-
-    otg01_with_metrics_ready = otg01_with_traffic_started
-    return otg01_with_metrics_ready
+    otg01_with_traffic_stopped = otg01_with_traffic_started
+    return otg01_with_traffic_stopped

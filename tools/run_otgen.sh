@@ -5,6 +5,6 @@ export OTG_LOCATION_P2="eth2"
 export OTG_LOCATION_P3="eth3"
 
 otg_yaml="$1"
-otgen run --insecure --file $otg_yaml --yaml --metrics flow | \
-otgen transform --metrics flow | \
-otgen display --mode table
+./otgen run --insecure --file $otg_yaml --yaml --metrics flow | \
+./otgen transform --metrics flow | \
+./otgen display --mode table

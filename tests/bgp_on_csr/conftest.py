@@ -3,17 +3,12 @@ from pathlib import Path
 import pytest
 from waiting import wait
 
+import tests.utils.otg as otg
 from tests.utils.csr import (
     bgp_sessions_up,
     configure_csr,
     csr_device,
     unconfigure_csr,
-)
-from tests.utils.otg import (
-    configure_otg,
-    otg_http_api,
-    otg_transmit_stopped,
-    unconfigure_otg,
 )
 
 
@@ -52,23 +47,23 @@ def csr01_with_bgp_sessions_up(csr01_configured, otg01_with_protocol_started):
 
 @pytest.fixture(scope="session")
 def otg01():
-    otg01 = otg_http_api("otg-controller")
+    otg01 = otg.http_api("otg-controller")
     return otg01
 
 
 @pytest.fixture
 def otg01_unconfigured(otg01):
-    unconfigure_otg(otg01)
+    otg.unconfigure(otg01)
     return otg01
 
 
 @pytest.fixture
 def otg01_configured(otg01_unconfigured, request):
     cfg = request.node.get_closest_marker("otgcfg").args[0]
-    configure_otg(otg01_unconfigured, Path(__file__).parent / cfg)
+    otg.configure(otg01_unconfigured, Path(__file__).parent / cfg)
     otg01_configured = otg01_unconfigured
     yield otg01_configured
-    unconfigure_otg(otg01_configured)
+    otg.unconfigure(otg01_configured)
 
 
 @pytest.fixture
@@ -91,7 +86,7 @@ def otg01_with_traffic_started(otg01_configured):
 @pytest.fixture
 def otg01_with_metrics_ready(otg01_with_traffic_started):
     wait(
-        lambda: otg_transmit_stopped(otg01_with_traffic_started, ["f1"]),
+        lambda: otg.is_transmit_stopped(otg01_with_traffic_started, ["f1"]),
         timeout_seconds=60,
         waiting_for="otg transmit stopped",
     )

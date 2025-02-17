@@ -28,7 +28,7 @@ tools/apply_delete_topology.sh apply <topology_dir>
 ```
 e.g.
 ```
-tools/apply_delete_topology.sh apply topo-02
+tools/apply_delete_topology.sh apply topo-00
 ```
 
 Add vars to ```.env``` file, e.g.:
@@ -43,5 +43,5 @@ EOF
 
 Run tests:
 ```
-pytest
+pytest -m topo_00
 ```
