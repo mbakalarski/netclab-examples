@@ -6,7 +6,7 @@ Topologies are defined in K8S manifests.
 ## Prerequisites
 * Linux host or VM
 * netclab installed (https://github.com/mbakalarski/netclab)
-* Python 3.x
+* Python 3.12+
 
 ## Install netclab-examples
 ```
@@ -14,7 +14,7 @@ git clone https://github.com/mbakalarski/netclab-examples.git
 cd netclab-examples
 python3 -m venv .venv
 source .venv/bin/activate
-pip install -e .
+pip install -r requirements.txt
 ```
 
 ## Run topology and tests
@@ -43,5 +43,5 @@ EOF
 
 Run tests:
 ```
-pytest --pyargs netclab_examples
+pytest
 ```
