@@ -6,3 +6,5 @@ __pycache__
 **/*.iso
 **/*.qcow2
 **/_[a-zA-Z]*
+tools/otg_config.yaml
+otgen

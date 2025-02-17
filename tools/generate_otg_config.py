@@ -3,8 +3,7 @@ from pathlib import Path
 import snappi
 
 
-
-def devices_with_bgp():
+def otg_config():
     api = snappi.Api()
     config: snappi.Config = api.config()
     config.options.port_options.location_preemption = True
@@ -111,11 +110,8 @@ def devices_with_bgp():
 
 
 if __name__ == "__main__":
-    config = devices_with_bgp()
+    config = otg_config()
 
-    filepath = Path(__file__).parent / "otg.yaml"
+    filepath = Path(__file__).parent / "otg_config.yaml"
     with open(filepath, "w") as f:
         f.write(str(config))
-    
-    # api = snappi.Api()
-    # api.set_config(config)

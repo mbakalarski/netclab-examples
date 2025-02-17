@@ -4,9 +4,9 @@ kind: Kustomization
 
 components:
 - ../components/networks/b0
-- ../components/networks/b1
-- ../components/networks/b2
-- ../components/networks/b3
+- ../components/networks/p1
+- ../components/networks/p2
+- ../components/networks/p3
 - ../components/srlinux/srl01
 - ../components/ixia-c
 
@@ -22,7 +22,7 @@ patches:
       value: b0
     - op: replace
       path: /metadata/annotations/k8s.v1.cni.cncf.io~1networks
-      value: b1@e1-1,b2@e1-2,b3@e1-3
+      value: p1@e1-1,p2@e1-2,p3@e1-3
 
 - target:
     kind: Pod
@@ -41,7 +41,7 @@ patches:
       value: b0@eth0
     - op: replace
       path: /metadata/annotations/k8s.v1.cni.cncf.io~1networks
-      value: b1@eth1
+      value: p1@eth1
 
 - target:
     kind: Pod
@@ -52,7 +52,7 @@ patches:
       value: b0@eth0
     - op: replace
       path: /metadata/annotations/k8s.v1.cni.cncf.io~1networks
-      value: b2@eth2
+      value: p2@eth2
 
 - target:
     kind: Pod
@@ -63,4 +63,4 @@ patches:
       value: b0@eth0
     - op: replace
       path: /metadata/annotations/k8s.v1.cni.cncf.io~1networks
-      value: b3@eth3
+      value: p3@eth3

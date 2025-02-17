@@ -118,12 +118,12 @@ flows:
       fixed: 256
     rate:
       choice: pps
-      pps: "1000"
+      pps: 50
     duration:
       choice: fixed_packets
       fixed_packets:
         packets: 1000
-        gap: 12
+        # gap: 12
     metrics:
       enable: true
       loss: false
