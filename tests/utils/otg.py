@@ -3,7 +3,7 @@ from pathlib import Path
 import snappi
 from dotenv import dotenv_values
 
-from ..test_helpers.k8s import svc_ext_ip_and_ports
+from .k8s import svc_ext_ip_and_ports
 
 
 def otg_api(k8s_svc: str, port_name, transport):
