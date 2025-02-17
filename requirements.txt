@@ -4,4 +4,4 @@ kubernetes>=31.0.0
 python-dotenv>=1.0.1
 pyats>=24.11
 waiting>=1.5.0
-pytest-ansible>=25.1.0
+# pytest-ansible>=25.1.0

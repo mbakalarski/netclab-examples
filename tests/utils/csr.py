@@ -3,7 +3,7 @@ from pathlib import Path
 from dotenv import dotenv_values
 from pyats.topology.device import Device
 
-from ..test_helpers.k8s import ext_ip
+from .k8s import ext_ip
 
 
 def csr_device(k8s_name: str) -> Device:
