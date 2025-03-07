@@ -3,13 +3,13 @@ from pathlib import Path
 import pytest
 from waiting import wait
 
-from tests.utils.csr import (
+from tests.test_helpers.csr import (
     bgp_sessions_up,
     configure_csr,
     csr_device,
     unconfigure_csr,
 )
-from tests.utils.otg import (
+from tests.test_helpers.otg import (
     configure_otg,
     otg_http_api,
     otg_transmit_stopped,

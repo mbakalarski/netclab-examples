@@ -14,7 +14,7 @@ git clone https://github.com/mbakalarski/netclab-examples.git
 cd netclab-examples
 python3 -m venv .venv
 source .venv/bin/activate
-pip install -r requirements.txt
+pip install -r tests/requirements.txt
 ```
 
 ## Run topology and tests
