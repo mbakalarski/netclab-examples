@@ -24,7 +24,7 @@ kubectl apply [-f|-k] <manifests for topology>
 ```
 or
 ```
-tools/apply_delete_topology.sh apply <topology_dir>
+topology_tools/apply_delete_topology.sh apply <topology_dir>
 ```
 e.g.
 ```
