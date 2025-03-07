@@ -28,7 +28,7 @@ tools/apply_delete_topology.sh apply <topology_dir>
 ```
 e.g.
 ```
-tools/apply_delete_topology.sh apply topo-02
+topology_tools/apply_delete_topology.sh apply topo-02
 ```
 
 Add vars to ```.env``` file, e.g.:
